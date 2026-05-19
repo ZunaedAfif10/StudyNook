@@ -1,10 +1,11 @@
 'use client'
 import React, { useState } from "react";
 import { Menu, X } from "lucide-react";
+import Link from "next/link";
 
 const Navbar = () => {
 
-    const user = true;
+    const user = false;
     const [menuOpen, setMenuOpen] = useState(false);
 
     return (
@@ -18,43 +19,43 @@ const Navbar = () => {
                 <ul className="hidden md:flex items-center gap-8 text-lg">
 
                     <li>
-                        <a href="/" className="hover:text-sky-400 transition">
+                        <Link href="/" className="hover:text-sky-400 transition">
                             Home
-                        </a>
+                        </Link>
                     </li>
 
                     <li>
-                        <a href="/rooms" className="hover:text-sky-400 transition">
+                        <Link href="/rooms" className="hover:text-sky-400 transition">
                             Rooms
-                        </a>
+                        </Link>
                     </li>
                     {user && (
                         <>
                             <li>
-                                <a
-                                    href="/add-room"
+                                <Link
+                                    href="/addroom"
                                     className="hover:text-sky-400 transition"
                                 >
                                     Add Room
-                                </a>
+                                </Link>
                             </li>
 
                             <li>
-                                <a
+                                <Link
                                     href="/my-listings"
                                     className="hover:text-sky-400 transition"
                                 >
                                     My Listings
-                                </a>
+                                </Link>
                             </li>
 
                             <li>
-                                <a
+                                <Link
                                     href="/my-bookings"
                                     className="hover:text-sky-400 transition"
                                 >
                                     My Bookings
-                                </a>
+                                </Link>
                             </li>
                         </>
                     )}
@@ -76,18 +77,18 @@ const Navbar = () => {
                             </div>
 
                             <div className="absolute right-0 mt-3 w-52 bg-white text-black rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 overflow-hidden">
-                                <a
+                                <Link
                                     href="/my-listings"
                                     className="block px-4 py-3 hover:bg-gray-100"
                                 >
                                     My Listings
-                                </a>
-                                <a
+                                </Link>
+                                <Link
                                     href="/my-bookings"
                                     className="block px-4 py-3 hover:bg-gray-100"
                                 >
                                     My Bookings
-                                </a>
+                                </Link>
                                 <button
                                     className="w-full text-left px-4 py-3 hover:bg-gray-100 text-red-500"
                                 >
@@ -97,12 +98,17 @@ const Navbar = () => {
                         </div>
                     ) : (
                         <>
-                            <button className="border border-sky-400 text-sky-400 px-4 py-2 rounded-md hover:bg-sky-400 hover:text-white transition">
+                            <Link href='/login'>
+                            <button className="border border-sky-400 text-sky-400 px-4 py-2 rounded-md hover:bg-[#232F72] hover:text-white transition">
                                 Login
                             </button>
-                            <button className="bg-sky-400 px-4 py-2 rounded-md hover:bg-sky-500 transition">
+                            </Link>
+                            
+                            <Link href='/register'>
+                            <button className="bg-sky-600 px-4 py-2 rounded-md hover:bg-[#232F72] transition">
                                 Register
                             </button>
+                            </Link>
                         </>
                     )}
                 </div>
@@ -126,25 +132,25 @@ const Navbar = () => {
                     </a>
                     {user && (
                         <>
-                            <a
-                                href="/add-room"
+                            <Link
+                                href="/addroom"
                                 className="hover:text-sky-400 transition"
                             >
                                 Add Room
-                            </a>
+                            </Link>
 
-                            <a
+                            <Link
                                 href="/my-listings"
                                 className="hover:text-sky-400 transition"
                             >
                                 My Listings
-                            </a>
-                            <a
+                            </Link>
+                            <Link
                                 href="/my-bookings"
                                 className="hover:text-sky-400 transition"
                             >
                                 My Bookings
-                            </a>
+                            </Link>
                         </>
                     )}
 
@@ -167,13 +173,17 @@ const Navbar = () => {
                             </div>
                         ) : (
                             <div className="flex flex-col gap-3">
-                                <button className="border border-sky-400 text-sky-400 px-4 py-2 rounded-md hover:bg-sky-400 hover:text-white transition">
-                                    Login
-                                </button>
+                                <Link href='/login'>
+                                    <button className="border border-sky-600 text-sky-400 px-4 py-2 rounded-md hover:bg-[#232F72] hover:text-white transition">
+                                        Login
+                                    </button>
+                                </Link>
 
-                                <button className="bg-sky-400 px-4 py-2 rounded-md hover:bg-sky-500 transition">
-                                    Register
-                                </button>
+                                <Link href='/register'>
+                                    <button className="bg-sky-600 px-4 py-2 rounded-md hover:bg-[#232F72] transition">
+                                        Register
+                                    </button>
+                                </Link>
                             </div>
                         )}
                     </div>
