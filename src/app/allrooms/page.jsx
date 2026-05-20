@@ -1,7 +1,7 @@
 import RoomCard from '@/components/RoomCard/RoomCard';
 import { getRooms } from '@/lib/data';
 import React from 'react'
-import { getRooms } from '@/lib/data';
+// import { getRooms } from '@/lib/data';
 
 export default async function page() {
     const roomData = await getRooms()
