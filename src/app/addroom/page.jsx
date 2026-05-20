@@ -1,26 +1,47 @@
 'use client'
+import { useSession } from "@/lib/auth-client";
 import { redirect } from "next/navigation";
 
-const amenitiesOptions = [
-    "Whiteboard",
-    "Projector",
-    "Wi-Fi",
-    "Power Outlets",
-    "Quiet Zone",
-    "Air Conditioning",
-];
 
 export default function page() {
+    const amenitiesOptions = [
+        "Whiteboard",
+        "Projector",
+        "Wi-Fi",
+        "Power Outlets",
+        "Quiet Zone",
+        "Air Conditioning",
+    ];
+
+
+    const { data: session } = useSession();
+    
+    // console.log(session);
+    const user = session?.user
+    
     const onSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
 
         const roomData = {
             ...Object.fromEntries(formData.entries()),
+            user_Id: user?.id,
             amenities: formData.getAll("amenities"),
         };
 
         console.log(roomData);
+
+        const res = await fetch('http://localhost:5000/rooms', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(roomData)
+        })
+
+        const data = await res.json();
+        // console.log(data)
+
         redirect('/');
     };
     return (

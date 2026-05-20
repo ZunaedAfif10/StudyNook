@@ -2,10 +2,14 @@
 import React, { useState } from "react";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
+import { authClient } from "@/lib/auth-client";
 
 const Navbar = () => {
 
-    const user = false;
+    const { data: session } = authClient.useSession()
+    // console.log(session.user);
+
+    const user = session?.user;
     const [menuOpen, setMenuOpen] = useState(false);
 
     return (
@@ -25,7 +29,7 @@ const Navbar = () => {
                     </li>
 
                     <li>
-                        <Link href="/rooms" className="hover:text-sky-400 transition">
+                        <Link href="/allrooms" className="hover:text-sky-400 transition">
                             Rooms
                         </Link>
                     </li>
@@ -64,50 +68,36 @@ const Navbar = () => {
                 <div className="hidden md:flex items-center gap-4">
 
                     {user ? (
-                        <div className="relative group">
-                            <div className="flex items-center gap-2 cursor-pointer">
-                                <img
-                                    src="/globe.svg"
-                                    alt="profile"
-                                    className="w-10 h-10 rounded-full border-2 border-sky-400"
-                                />
-                                <span className="font-medium">
-                                    John Doe
-                                </span>
-                            </div>
 
-                            <div className="absolute right-0 mt-3 w-52 bg-white text-black rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 overflow-hidden">
-                                <Link
-                                    href="/my-listings"
-                                    className="block px-4 py-3 hover:bg-gray-100"
-                                >
-                                    My Listings
-                                </Link>
-                                <Link
-                                    href="/my-bookings"
-                                    className="block px-4 py-3 hover:bg-gray-100"
-                                >
-                                    My Bookings
-                                </Link>
-                                <button
-                                    className="w-full text-left px-4 py-3 hover:bg-gray-100 text-red-500"
-                                >
-                                    Logout
-                                </button>
-                            </div>
+                        <div className="flex items-center gap-2 cursor-pointer">
+                            <img
+                                src={user?.image}
+                                alt="profile"
+                                className="w-10 h-10 rounded-full border-2 border-sky-400"
+                            />
+                            <span className="font-medium whitespace-nowrap">
+                                {user?.name}
+                            </span>
+                            <button
+                                className="w-full rounded-xl border text-red-500 border-white/10 bg-white/5 px-3 py-2 font-semibold backdrop-blur-lg transition hover:bg-white/10"
+                                onClick={async ()=> await authClient.signOut()}
+                            >
+                                Logout
+                            </button>
                         </div>
+
                     ) : (
                         <>
                             <Link href='/login'>
-                            <button className="border border-sky-400 text-sky-400 px-4 py-2 rounded-md hover:bg-[#232F72] hover:text-white transition">
-                                Login
-                            </button>
+                                <button className="border border-sky-400 text-sky-400 px-4 py-2 rounded-md hover:bg-[#232F72] hover:text-white transition">
+                                    Login
+                                </button>
                             </Link>
-                            
+
                             <Link href='/register'>
-                            <button className="bg-sky-600 px-4 py-2 rounded-md hover:bg-[#232F72] transition">
-                                Register
-                            </button>
+                                <button className="bg-sky-600 px-4 py-2 rounded-md hover:bg-[#232F72] transition">
+                                    Register
+                                </button>
                             </Link>
                         </>
                     )}
@@ -127,7 +117,7 @@ const Navbar = () => {
                     <a href="/" className="hover:text-sky-400 transition">
                         Home
                     </a>
-                    <a href="/rooms" className="hover:text-sky-400 transition">
+                    <a href="/allrooms" className="hover:text-sky-400 transition">
                         Rooms
                     </a>
                     {user && (
@@ -167,7 +157,7 @@ const Navbar = () => {
                                         John Doe
                                     </span>
                                 </div>
-                                <button className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-md transition">
+                                <button className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-md transition" onClick={async ()=> await authClient.signOut()}>
                                     Logout
                                 </button>
                             </div>
