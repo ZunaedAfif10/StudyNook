@@ -149,12 +149,12 @@ const Navbar = () => {
                             <div className="flex flex-col gap-3">
                                 <div className="flex items-center gap-3">
                                     <img
-                                        src="https://i.pravatar.cc/40"
+                                        src={user?.image}
                                         alt="profile"
                                         className="w-10 h-10 rounded-full border-2 border-sky-400"
                                     />
                                     <span className="font-medium">
-                                        John Doe
+                                        {user?.name}
                                     </span>
                                 </div>
                                 <button className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-md transition" onClick={async ()=> await authClient.signOut()}>

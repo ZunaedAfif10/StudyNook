@@ -1,8 +1,9 @@
+import Link from 'next/link';
 import React from 'react'
 
 export default function RoomCard({ room }) {
 
-    const { roomName, description, image, floor, capacity, hourlyRate, amenities, user_Id } = room;
+    const { roomName, description, image, floor, capacity, hourlyRate, amenities, user_Id,_id } = room;
 
     return (
         <div>
@@ -35,11 +36,13 @@ export default function RoomCard({ room }) {
                             })
                         }
                     </div>
+                    <Link href={`allrooms/${_id}`} className='mt-auto'>
                     <button
-                        className="mt-auto w-full rounded-lg bg-sky-500 py-2 font-medium transition hover:bg-sky-600"
-                    >
+                        className="w-full rounded-lg bg-sky-500 py-2 font-medium transition hover:bg-sky-600"
+                        >
                         View Details
                     </button>
+                    </Link>
 
                 </div>
             </div>
