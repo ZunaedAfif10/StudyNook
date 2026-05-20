@@ -1,9 +1,10 @@
 import RoomCard from '@/components/RoomCard/RoomCard';
+import { getRooms } from '@/lib/data';
 import React from 'react'
 import { getRooms } from '@/lib/data';
 
 export default async function page() {
-    const roomData = await getRooms();
+    const roomData = await getRooms()
     // console.log(data);
     return (
         <div className="min-h-screen bg-linear-to-br from-slate-950 via-slate-900 to-black flex items-center justify-center px-4 py-10">

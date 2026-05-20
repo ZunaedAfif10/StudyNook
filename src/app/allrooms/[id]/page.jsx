@@ -1,20 +1,29 @@
+
+import { auth } from '@/lib/auth';
 import { getRoomsById } from '@/lib/data';
+import { headers } from 'next/headers';
 import React from 'react'
 
 export default async function page({ params }) {
+
+    const session = await auth.api.getSession({
+        headers: await headers()
+    })
+
     const { id } = await params;
-    console.log(id);
+    // console.log(id);
     const room = await getRoomsById(id);
     // console.log(room)
 
-    const isOwner = true
+    // console.log(session?.user.id);
+    // console.log(room.user_Id)
+
+    const isOwner = room.user_Id == session?.user.id
 
     return (
         <div className="min-h-screen bg-linear-to-br from-slate-950 via-slate-900 to-black flex items-center justify-center px-4 py-10">
 
             <div className="w-full max-w-4xl rounded-2xl overflow-hidden border border-slate-800 bg-slate-900 shadow-2xl">
-
-                {/* Image */}
 
                 <img
                     src={room.image}
@@ -22,11 +31,7 @@ export default async function page({ params }) {
                     className="w-full h-[200] object-cover"
                 />
 
-
-                {/* Content */}
                 <div className="p-6 md:p-8 space-y-6">
-
-                    {/* Title + Price row */}
                     <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-3">
                         <h1 className="text-4xl md:text-4xl font-bold text-white leading-tight">
                             {room.roomName}
@@ -37,12 +42,9 @@ export default async function page({ params }) {
                         </span>
                     </div>
 
-                    {/* Description */}
                     <p className=" md:text-base text-slate-300 leading-relaxed">
                         {room.description}
                     </p>
-
-                    {/* Info cards */}
                     <div className="grid grid-cols-3 gap-3 text-center">
                         <div className="bg-slate-800/60 border border-slate-700 rounded-xl p-3">
                             <p className="text-xl text-slate-400">Floor</p>
@@ -59,8 +61,6 @@ export default async function page({ params }) {
                             <p className="text-lg text-white font-semibold">{room.bookingCount || 0}</p>
                         </div>
                     </div>
-
-                    {/* Amenities */}
                     <div>
                         <p className="text-2xl text-slate-400 mb-2">Amenities</p>
                         <div className="flex flex-wrap gap-2">
@@ -74,8 +74,6 @@ export default async function page({ params }) {
                             ))}
                         </div>
                     </div>
-
-                    {/* Actions */}
                     <div className="pt-2">
                         <button className="w-full bg-sky-500 hover:bg-sky-600 transition py-3 rounded-xl font-medium text-white shadow-lg">
                             Book Now
