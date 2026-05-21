@@ -28,6 +28,7 @@ export default function page() {
             ...Object.fromEntries(formData.entries()),
             user_Id: user?.id,
             amenities: formData.getAll("amenities"),
+            createdAt: new Date()
         };
 
         console.log(roomData);

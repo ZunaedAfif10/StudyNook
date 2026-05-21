@@ -1,3 +1,6 @@
+import Featured from "../Featured/Featured";
+import { HowWorks } from "../HowWorks/HowWorks";
+import { WhyStudy } from "../WhyStudy/WhyStudy";
 
 
 export default function Banner() {
@@ -50,6 +53,9 @@ export default function Banner() {
                     </div>
                 </div>
             </div>
+            <Featured></Featured>
+            <WhyStudy></WhyStudy>
+            <HowWorks></HowWorks>
         </div>
     );
 }

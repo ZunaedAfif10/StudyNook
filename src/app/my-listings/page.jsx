@@ -24,14 +24,18 @@ export default async function page() {
   return (
     <div>
       <div className="min-h-screen bg-linear-to-br from-slate-950 via-slate-900 to-black flex items-center justify-center px-4 py-10">
-        <div className='md:container lg:container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7'>
+        {
+          roomData.length === 0 ?
+            <h1 className="text-center flex justify-center items-center text-4xl font-bold text-white">No Listing Found</h1> :
+            <div className='md:container lg:container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7'>
 
-          {
-            roomData.map((room, ind) => {
-              return <RoomCard key={ind} room={room}></RoomCard>
-            })
-          }
-        </div>
+              {
+                roomData.map((room, ind) => {
+                  return <RoomCard key={ind} room={room}></RoomCard>
+                })
+              }
+            </div>
+        }
       </div>
     </div>
   )
