@@ -14,8 +14,12 @@ export default async function page() {
 
     // console.log(bookingData)
     return (
-        <div>
-            <BookingTable bookingData={bookingData}></BookingTable>
+        <div className="min-h-screen bg-linear-to-br from-slate-950 via-slate-900 to-black flex flex-col gap-10 justify-center items-center px-4 py-10">
+            {
+                bookingData.length === 0 ?
+                    <h1 className="text-center flex justify-center items-center text-4xl font-bold text-white">No Bookings Found</h1> :
+                    <BookingTable bookingData={bookingData}></BookingTable>
+            }
         </div>
     )
 }
