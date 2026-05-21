@@ -3,8 +3,26 @@ import React from 'react'
 import { Button, Chip, Table } from '@heroui/react'
 import Image from 'next/image'
 
-export default function BookingTable({bookingData}) {
-    const isActive = false
+import { redirect } from 'next/navigation'
+
+export default function BookingTable({ bookingData }) {
+    const handleCancel = async (_id) => {
+        const res = await fetch(`http://localhost:5000/bookings/${_id}`, {
+            method: "PATCH",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify({
+                status: "cancelled"
+            })
+            // credentials: "include"
+        });
+        window.location.reload();
+        const data = await res.json();
+        console.log(data);
+    }
+
+
     return (
         <div className="min-h-screen bg-linear-to-br from-slate-950 via-slate-900 to-black flex items-center justify-center px-4 py-10">
             <Table>
@@ -28,8 +46,8 @@ export default function BookingTable({bookingData}) {
                                         <Table.Cell>{book.date}</Table.Cell>
                                         <Table.Cell>{book.startTime} - {book.endTime}</Table.Cell>
                                         <Table.Cell>{book.totalCost}</Table.Cell>
-                                        <Table.Cell>{isActive ? <Chip color="success">Confirmed</Chip> : <Chip color="danger">Cancelled</Chip>}</Table.Cell>
-                                        <Table.Cell><Button variant='danger'>Cancel</Button></Table.Cell>
+                                        <Table.Cell>{book.status ?  <Chip color="danger">Cancelled</Chip> : <Chip color="success">Confirmed</Chip> }</Table.Cell>
+                                        <Table.Cell>{book.status ? "" : <Button variant='danger' onClick={() => handleCancel(book._id)}>Cancel</Button>} </Table.Cell>
                                     </Table.Row>
                                 })
                             }
