@@ -1,6 +1,7 @@
 'use client'
-import { useSession } from "@/lib/auth-client";
+import { authClient, useSession } from "@/lib/auth-client";
 import { redirect } from "next/navigation";
+import { toast } from "react-toastify";
 
 
 export default function page() {
@@ -30,16 +31,19 @@ export default function page() {
         };
 
         console.log(roomData);
-
+        const {data:tokenData} = await authClient.token()
+        
         const res = await fetch('http://localhost:5000/rooms', {
             method: 'POST',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                authorization: `Bearer ${tokenData?.token}`
             },
             body: JSON.stringify(roomData)
         })
 
         const data = await res.json();
+        toast.success('Room added successfully');
         // console.log(data)
 
         redirect('/');

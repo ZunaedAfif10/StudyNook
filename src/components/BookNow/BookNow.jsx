@@ -6,9 +6,9 @@ import { redirect } from "next/navigation";
 import { useMemo, useState } from "react";
 import { toast } from "react-toastify";
 
-export default function BookNow({room}) {
-    const {roomName,image} = room
-    const {data:session} = authClient.useSession()
+export default function BookNow({ room , bookCount }) {
+    const { roomName, image } = room
+    const { data: session } = authClient.useSession()
     // console.log(session?.user.id);
     const user_Id = session?.user.id
     const hourlyRate = room.hourlyRate;
@@ -42,9 +42,9 @@ export default function BookNow({room}) {
         return (endHour - startHour) * hourlyRate;
     }, [startTime, endTime]);
 
-    // console.log(room);
+    console.log(room);
 
-    const handleSubmit = async(e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         const bookingData = {
@@ -58,16 +58,19 @@ export default function BookNow({room}) {
             user_Id
         };
 
+        const { data: tokenData } = await authClient.token()
+
         // console.log("Booking Data:", bookingData);
         const res = await fetch('http://localhost:5000/bookings', {
             method: 'POST',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                authorization: `Bearer ${tokenData?.token}`
             },
             body: JSON.stringify(bookingData)
         })
         const data = await res.json()
-        // console.log(data.message)
+        console.log(data)
         toast(data.message);
         redirect('/allrooms')
 

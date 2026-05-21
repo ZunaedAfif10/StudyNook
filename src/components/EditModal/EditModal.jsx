@@ -1,7 +1,8 @@
 "use client";
-import { useSession } from "@/lib/auth-client";
+import { authClient, useSession } from "@/lib/auth-client";
 import { Envelope } from "@gravity-ui/icons";
 import { Button, Input, Label, Modal, Surface, TextField } from "@heroui/react";
+import { toast } from "react-toastify";
 
 
 export default function EditModal({ room }) {
@@ -20,7 +21,7 @@ export default function EditModal({ room }) {
 
     // console.log(session);
     const user = session?.user
-    const {_id} = room;
+    const { _id } = room;
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -32,10 +33,13 @@ export default function EditModal({ room }) {
             amenities: formData.getAll("amenities"),
         };
 
+        const { data: tokenData } = await authClient.token()
+
         const res = await fetch(`http://localhost:5000/rooms/${_id}`, {
             method: "PATCH",
             headers: {
                 "content-type": "application/json",
+                authorization: `Bearer ${tokenData?.token}`
             },
             body: JSON.stringify(roomData)
             // credentials: "include"
@@ -43,6 +47,7 @@ export default function EditModal({ room }) {
 
         // console.log(roomData);
         const data = res.json();
+        toast.success('Room Updated successfully');
         window.location.reload();
         // console.log(data)
     }

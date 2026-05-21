@@ -1,13 +1,17 @@
 "use client";
+import { authClient } from "@/lib/auth-client";
 import { TrashBin } from "@gravity-ui/icons";
 import { AlertDialog, Button } from "@heroui/react";
 
 export default function CancelAlert({ book }) {
     const handleCancel = async (_id) => {
+        const { data: tokenData } = await authClient.token()
+        
         const res = await fetch(`http://localhost:5000/bookings/${_id}`, {
             method: "PATCH",
             headers: {
                 "content-type": "application/json",
+                authorization: `Bearer ${tokenData?.token}`
             },
             body: JSON.stringify({
                 status: "cancelled"
@@ -43,7 +47,7 @@ export default function CancelAlert({ book }) {
                             <Button slot="close" variant="tertiary">
                                 Undo
                             </Button>
-                            <Button onClick={()=>handleCancel(book._id)} slot="close" variant="danger">
+                            <Button onClick={() => handleCancel(book._id)} slot="close" variant="danger">
                                 Proceed
                             </Button>
                         </AlertDialog.Footer>

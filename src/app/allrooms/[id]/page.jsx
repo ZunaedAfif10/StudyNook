@@ -15,11 +15,21 @@ export default async function page({ params }) {
 
     const { id } = await params;
     // console.log(id);
-    const room = await getRoomsById(id);
+
+    const { token } = await auth.api.getToken({
+        headers: await headers()
+    })
     // console.log(room)
+    const res = await fetch(`http://localhost:5000/rooms/${id}`, {
+        headers: {
+            authorization: `Bearer ${token}`
+        }
+    });
+    const room = await res.json();
 
     // console.log(session?.user.id);
     // console.log(room.user_Id)
+    
 
     const isOwner = room.user_Id == session?.user.id
 

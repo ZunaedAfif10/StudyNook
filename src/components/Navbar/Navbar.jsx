@@ -80,7 +80,8 @@ const Navbar = () => {
                             </span>
                             <button
                                 className="w-full rounded-xl border text-red-500 border-white/10 bg-white/5 px-3 py-2 font-semibold backdrop-blur-lg transition hover:bg-white/10"
-                                onClick={async ()=> await authClient.signOut()}
+                                onClick={async () => {await authClient.signOut()
+                                }}
                             >
                                 Logout
                             </button>
@@ -157,7 +158,10 @@ const Navbar = () => {
                                         {user?.name}
                                     </span>
                                 </div>
-                                <button className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-md transition" onClick={async ()=> await authClient.signOut()}>
+                                <button className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-md transition" onClick={async () => {
+                                    await authClient.signOut()
+                                }
+                                }>
                                     Logout
                                 </button>
                             </div>

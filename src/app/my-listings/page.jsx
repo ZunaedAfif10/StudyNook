@@ -9,7 +9,15 @@ export default async function page() {
     headers: await headers()
   })
 
-  const res = await fetch(`http://localhost:5000/listing/${session?.user.id}`);
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
+
+  const res = await fetch(`http://localhost:5000/listing/${session?.user.id}`, {
+    headers: {
+      authorization: `Bearer ${token}`
+    }
+  });
   const roomData = await res.json();
 
   // console.log(data)
