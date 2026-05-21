@@ -1,0 +1,30 @@
+import RoomCard from '@/components/RoomCard/RoomCard';
+import { auth } from '@/lib/auth';
+import { headers } from 'next/headers';
+import React from 'react'
+
+export default async function page() {
+
+  const session = await auth.api.getSession({
+    headers: await headers()
+  })
+
+  const res = await fetch(`http://localhost:5000/listing/${session?.user.id}`);
+  const roomData = await res.json();
+
+  // console.log(data)
+  return (
+    <div>
+      <div className="min-h-screen bg-linear-to-br from-slate-950 via-slate-900 to-black flex items-center justify-center px-4 py-10">
+        <div className='md:container lg:container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7'>
+
+          {
+            roomData.map((room, ind) => {
+              return <RoomCard key={ind} room={room}></RoomCard>
+            })
+          }
+        </div>
+      </div>
+    </div>
+  )
+}
