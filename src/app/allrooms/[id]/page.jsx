@@ -1,5 +1,7 @@
 
 import BookNow from '@/components/BookNow/BookNow';
+import { DeleteAlert } from '@/components/DeleteAlert/DeleteAlert';
+import EditModal from '@/components/EditModal/EditModal';
 import { auth } from '@/lib/auth';
 import { getRoomsById } from '@/lib/data';
 import { headers } from 'next/headers';
@@ -81,13 +83,9 @@ export default async function page({ params }) {
 
                     {isOwner ? (
                         <>
-                            <button className="border border-white/10 text-white bg-white/5 px-7 backdrop-blur-lg transition hover:bg-white/10 w-full sm:flex-1  py-3 rounded-lg font-medium">
-                                Edit
-                            </button>
+                            <EditModal room={room}></EditModal>
+                            <DeleteAlert room={room}></DeleteAlert>
 
-                            <button className="w-full sm:flex-1 bg-red-500 hover:bg-red-600 py-3 rounded-lg font-medium">
-                                Delete
-                            </button>
                         </>
                     ) : null}
 

@@ -4,23 +4,9 @@ import { Button, Chip, Table } from '@heroui/react'
 import Image from 'next/image'
 
 import { redirect } from 'next/navigation'
+import CancelAlert from '../CancelAlert/CancelAlert'
 
 export default function BookingTable({ bookingData }) {
-    const handleCancel = async (_id) => {
-        const res = await fetch(`http://localhost:5000/bookings/${_id}`, {
-            method: "PATCH",
-            headers: {
-                "content-type": "application/json",
-            },
-            body: JSON.stringify({
-                status: "cancelled"
-            })
-            // credentials: "include"
-        });
-        window.location.reload();
-        const data = await res.json();
-        console.log(data);
-    }
 
 
     return (
@@ -47,7 +33,7 @@ export default function BookingTable({ bookingData }) {
                                         <Table.Cell>{book.startTime} - {book.endTime}</Table.Cell>
                                         <Table.Cell>{book.totalCost}</Table.Cell>
                                         <Table.Cell>{book.status ?  <Chip color="danger">Cancelled</Chip> : <Chip color="success">Confirmed</Chip> }</Table.Cell>
-                                        <Table.Cell>{book.status ? "" : <Button variant='danger' onClick={() => handleCancel(book._id)}>Cancel</Button>} </Table.Cell>
+                                        <Table.Cell>{book.status ? "" : <CancelAlert book={book}></CancelAlert>} </Table.Cell>
                                     </Table.Row>
                                 })
                             }
