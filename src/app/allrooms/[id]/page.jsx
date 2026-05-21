@@ -1,4 +1,5 @@
 
+import BookNow from '@/components/BookNow/BookNow';
 import { auth } from '@/lib/auth';
 import { getRoomsById } from '@/lib/data';
 import { headers } from 'next/headers';
@@ -75,9 +76,7 @@ export default async function page({ params }) {
                         </div>
                     </div>
                     <div className="pt-2">
-                        <button className="w-full bg-sky-500 hover:bg-sky-600 transition py-3 rounded-xl font-medium text-white shadow-lg">
-                            Book Now
-                        </button>
+                        <BookNow room={room}></BookNow>
                     </div>
 
                     {isOwner ? (
