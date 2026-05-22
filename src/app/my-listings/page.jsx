@@ -17,10 +17,11 @@ export default async function page() {
     headers: await headers(),
   });
 
-  const res = await fetch(`http://localhost:5000/listing/${session?.user.id}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/listing/${session?.user.id}`, {
     headers: {
       authorization: `Bearer ${token}`
-    }
+    },
+    cache: "no-store"
   });
   const roomData = await res.json();
 

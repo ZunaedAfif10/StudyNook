@@ -20,10 +20,11 @@ export default async function page() {
     });
 
 
-    const res = await fetch(`http://localhost:5000/bookings/${session?.user.id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/bookings/${session?.user.id}`, {
         headers: {
             authorization: `Bearer ${token}`
-        }
+        },
+        cache: "no-store"
     });
     const bookingData = await res.json();
 

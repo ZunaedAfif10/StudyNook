@@ -8,7 +8,7 @@ export default function CancelAlert({ book }) {
     const handleCancel = async (_id) => {
         const { data: tokenData } = await authClient.token()
 
-        const res = await fetch(`http://localhost:5000/bookings/${_id}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/bookings/${_id}`, {
             method: "PATCH",
             headers: {
                 "content-type": "application/json",

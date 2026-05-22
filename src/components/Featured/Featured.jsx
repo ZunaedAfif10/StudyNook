@@ -3,7 +3,7 @@ import RoomCard from '../RoomCard/RoomCard';
 
 export default async function Featured() {
 
-    const res = await fetch(`http://localhost:5000/rooms/featured`)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/rooms/featured`,{cache: "no-store"})
     const roomdata = await res.json();
     // console.log(data)
 

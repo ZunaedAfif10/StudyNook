@@ -47,7 +47,7 @@ export default function FilterClient({ rooms }) {
                 <input
                     type="text"
                     placeholder="Search room..."
-                    className="w-full p-2 text-2xl mb-4 rounded text-black"
+                    className="w-full p-2 text-2xl mb-4 rounded text-white"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                 />

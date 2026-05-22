@@ -21,17 +21,19 @@ export default async function page({ params }) {
         headers: await headers()
     })
     // console.log(room)
-    const res = await fetch(`http://localhost:5000/rooms/${id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/rooms/${id}`, {
         headers: {
             authorization: `Bearer ${token}`
-        }
+        },
+        cache: "no-store"
     });
     const room = await res.json();
 
-    const resp = await fetch(`http://localhost:5000/bookings/${session?.user.id}`, {
+    const resp = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/bookings/${session?.user.id}`, {
         headers: {
             authorization: `Bearer ${token}`
-        }
+        },
+        cache: "no-store"
     });
     const allBookings = await resp.json();
 

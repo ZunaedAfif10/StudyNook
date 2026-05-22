@@ -61,7 +61,7 @@ export default function BookNow({ room , bookCount }) {
         const { data: tokenData } = await authClient.token()
 
         // console.log("Booking Data:", bookingData);
-        const res = await fetch('http://localhost:5000/bookings', {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/bookings`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
@@ -140,9 +140,9 @@ export default function BookNow({ room , bookCount }) {
                 </select>
             </div>
 
-            <div className="p-4 bg-gray-100 rounded-lg text-center">
+            <div className="p-4 bg-slate-900 rounded-lg text-center">
                 <p className="text-sm text-gray-500">Total Cost</p>
-                <h3 className="text-2xl font-bold text-black">
+                <h3 className="text-2xl font-bold text-white">
                     ${totalCost}
                 </h3>
             </div>
@@ -162,7 +162,7 @@ export default function BookNow({ room , bookCount }) {
 
             <Button
                 type="submit"
-                className="w-full bg-white text-white py-3 rounded-lg"
+                className="w-full bg-slate-900 text-white font-bold text-lg py-3 rounded-lg"
             >
                 Confirm Booking
             </Button>
