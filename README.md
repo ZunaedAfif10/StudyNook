@@ -1,4 +1,4 @@
-#<div align="center">
+<div align="center">
 
 # 📚 StudyNook
 
@@ -339,4 +339,4 @@ This project is licensed under the MIT License.
 
 Developed with dedication and passion by Zunaed Afif
 
-</div> ```
+</div> 
