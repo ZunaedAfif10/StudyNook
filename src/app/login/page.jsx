@@ -17,9 +17,17 @@ import {
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
 import { FcGoogle } from "react-icons/fc";
-import { toast, ToastContainer } from "react-toastify";
+
+import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 export default function OnSurface() {
+
+
+    useEffect(() => {
+        document.title = "StudyNook - Login";
+    }, []);
+
     const {
         register,
         handleSubmit,
@@ -137,7 +145,6 @@ export default function OnSurface() {
                             </Fieldset.Actions>
                         </Fieldset>
 
-                        <ToastContainer />
                     </Form>
                 </Surface>
 

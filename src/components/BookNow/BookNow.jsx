@@ -4,7 +4,7 @@ import { authClient } from "@/lib/auth-client";
 import { Button } from "@heroui/react";
 import { redirect } from "next/navigation";
 import { useMemo, useState } from "react";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 
 export default function BookNow({ room , bookCount }) {
     const { roomName, image } = room
@@ -42,7 +42,7 @@ export default function BookNow({ room , bookCount }) {
         return (endHour - startHour) * hourlyRate;
     }, [startTime, endTime]);
 
-    console.log(room);
+    // console.log(room);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -70,7 +70,7 @@ export default function BookNow({ room , bookCount }) {
             body: JSON.stringify(bookingData)
         })
         const data = await res.json()
-        console.log(data)
+        // console.log(data)
         toast(data.message);
         redirect('/allrooms')
 

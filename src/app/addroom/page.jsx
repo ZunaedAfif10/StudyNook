@@ -1,10 +1,17 @@
 'use client'
 import { authClient, useSession } from "@/lib/auth-client";
 import { redirect } from "next/navigation";
-import { toast } from "react-toastify";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
+
 
 
 export default function page() {
+
+    useEffect(() => {
+        document.title = "StudyNook - Add Your Rooms";
+    }, []);
+
     const amenitiesOptions = [
         "Whiteboard",
         "Projector",
@@ -16,10 +23,10 @@ export default function page() {
 
 
     const { data: session } = useSession();
-    
+
     // console.log(session);
     const user = session?.user
-    
+
     const onSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
@@ -32,8 +39,8 @@ export default function page() {
         };
 
         console.log(roomData);
-        const {data:tokenData} = await authClient.token()
-        
+        const { data: tokenData } = await authClient.token()
+
         const res = await fetch('http://localhost:5000/rooms', {
             method: 'POST',
             headers: {

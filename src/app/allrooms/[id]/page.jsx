@@ -3,9 +3,10 @@ import BookNow from '@/components/BookNow/BookNow';
 import { DeleteAlert } from '@/components/DeleteAlert/DeleteAlert';
 import EditModal from '@/components/EditModal/EditModal';
 import { auth } from '@/lib/auth';
-import { getRoomsById } from '@/lib/data';
+import { getRooms, getRoomsById } from '@/lib/data';
 import { headers } from 'next/headers';
 import React from 'react'
+
 
 export default async function page({ params }) {
 
@@ -27,9 +28,26 @@ export default async function page({ params }) {
     });
     const room = await res.json();
 
+    const resp = await fetch(`http://localhost:5000/bookings/${session?.user.id}`, {
+        headers: {
+            authorization: `Bearer ${token}`
+        }
+    });
+    const allBookings = await resp.json();
+
+    const { roomName } = room
+    
+    const count = allBookings.filter(
+        (booking) => booking.roomName === roomName
+    ).length;
+    console.log(count)
+
+    
+
+
     // console.log(session?.user.id);
     // console.log(room.user_Id)
-    
+
 
     const isOwner = room.user_Id == session?.user.id
 
@@ -71,7 +89,7 @@ export default async function page({ params }) {
 
                         <div className="bg-slate-800/60 border border-slate-700 rounded-xl p-3">
                             <p className="text-xl text-slate-400">Bookings</p>
-                            <p className="text-lg text-white font-semibold">{room.bookingCount || 0}</p>
+                            <p className="text-lg text-white font-semibold">{count || 0}</p>
                         </div>
                     </div>
                     <div>

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Featured from "../Featured/Featured";
 import { HowWorks } from "../HowWorks/HowWorks";
 import { WhyStudy } from "../WhyStudy/WhyStudy";
@@ -26,12 +27,12 @@ export default function Banner() {
                         availability, and conflict-free scheduling.
                     </p>
                     <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center lg:justify-start">
-                        <button className="rounded-xl bg-linear-to-r from-cyan-500 to-blue-600 px-7 py-4 font-semibold shadow-lg shadow-cyan-500/20 transition hover:scale-105">
+                        <Link href='/allrooms'><button className="rounded-xl bg-linear-to-r from-cyan-500 to-blue-600 px-7 py-4 font-semibold shadow-lg shadow-cyan-500/20 transition hover:scale-105">
                             Explore Rooms
-                        </button>
-                        <button className="rounded-xl border border-white/10 bg-white/5 px-7 py-4 font-semibold backdrop-blur-lg transition hover:bg-white/10">
+                        </button></Link>
+                        <Link href='/addroom'><button className="rounded-xl border border-white/10 bg-white/5 px-7 py-4 font-semibold backdrop-blur-lg transition hover:bg-white/10">
                             List Your Room
-                        </button>
+                        </button></Link>
                     </div>
                 </div>
                 <div className="relative flex-1">

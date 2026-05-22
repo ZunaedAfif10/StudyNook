@@ -1,10 +1,14 @@
 import FilterClient from '@/components/FilterClient/FilterClient';
 import RoomCard from '@/components/RoomCard/RoomCard';
 import { getRooms } from '@/lib/data';
-import React from 'react'
 // import { getRooms } from '@/lib/data';
 
+export const metadata = {
+  title: "StudyNook - Explore Rooms",
+};
+
 export default async function page() {
+
     const roomData = await getRooms()
     // console.log(data);
     return (

@@ -4,7 +4,7 @@ import React from 'react'
 
 export default function RoomCard({ room }) {
 
-    const { roomName, description, image, floor, capacity, hourlyRate, amenities, user_Id ,_id} = room;
+    const { roomName, description, image, floor, capacity, hourlyRate, amenities, user_Id, _id } = room;
 
     return (
         <div>
@@ -29,13 +29,22 @@ export default function RoomCard({ room }) {
                         ${hourlyRate}/hr
                     </p>
                     <div className="my-4 flex flex-wrap gap-2">
-                        {
-                            amenities.map((amenit, ind) => {
-                                return <span key={ind} className="rounded-full bg-slate-800 px-3 py-1 text-xs">
+                        {amenities.slice(0, 3).map((amenit, ind) => {
+                            return (
+                                <span
+                                    key={ind}
+                                    className="rounded-full bg-slate-800 px-3 py-1 text-xs"
+                                >
                                     {amenit}
                                 </span>
-                            })
-                        }
+                            );
+                        })}
+
+                        {amenities.length > 3 && (
+                            <span className="rounded-full bg-slate-700 px-3 py-1 text-xs">
+                                +{amenities.length - 3} more
+                            </span>
+                        )}
                     </div>
                     <Link href={`/allrooms/${_id}`} className='mt-auto '>
                         <button

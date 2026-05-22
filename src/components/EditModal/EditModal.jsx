@@ -2,7 +2,8 @@
 import { authClient, useSession } from "@/lib/auth-client";
 import { Envelope } from "@gravity-ui/icons";
 import { Button, Input, Label, Modal, Surface, TextField } from "@heroui/react";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
+
 
 
 export default function EditModal({ room }) {

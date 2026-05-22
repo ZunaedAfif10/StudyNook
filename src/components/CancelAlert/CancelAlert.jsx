@@ -2,11 +2,12 @@
 import { authClient } from "@/lib/auth-client";
 import { TrashBin } from "@gravity-ui/icons";
 import { AlertDialog, Button } from "@heroui/react";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function CancelAlert({ book }) {
     const handleCancel = async (_id) => {
         const { data: tokenData } = await authClient.token()
-        
+
         const res = await fetch(`http://localhost:5000/bookings/${_id}`, {
             method: "PATCH",
             headers: {
@@ -18,6 +19,7 @@ export default function CancelAlert({ book }) {
             })
             // credentials: "include"
         });
+        toast.success('Cancelled Successfully')
         window.location.reload();
         const data = await res.json();
         console.log(data);
