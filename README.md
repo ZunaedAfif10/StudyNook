@@ -101,7 +101,7 @@ Modern technologies used to build a scalable and maintainable full-stack applica
 
 | Technology | Purpose |
 |------------|---------|
-| React.js | Frontend Library |
+| Next.js | Frontend Library |
 | Tailwind CSS | Styling Framework |
 | BetterAuth | Authentication |
 | React Icons | Icon Library |
